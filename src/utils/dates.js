@@ -1,6 +1,7 @@
 /* eslint no-fallthrough: off */
 import dateMath from 'date-arithmetic'
-import localizer from '../localizer'
+// import localizer from '../localizer'
+import * as moment from 'jalali-moment'
 
 const MILLI = {
   seconds: 1000,
@@ -21,15 +22,23 @@ let dates = {
   },
 
   firstVisibleDay(date, culture) {
-    let firstOfMonth = dates.startOf(date, 'month')
+    const md = moment.from(date)
+    md.locale(culture)
+    let firstOfMonth = md.startOf('month').startOf('week')
+    return firstOfMonth.toDate()
 
-    return dates.startOf(firstOfMonth, 'week', localizer.startOfWeek(culture))
+    // let firstOfMonth = this.startOf(date, 'month')
+    // return dates.startOf(firstOfMonth, 'week', localizer.startOfWeek(culture))
   },
 
   lastVisibleDay(date, culture) {
-    let endOfMonth = dates.endOf(date, 'month')
+    const md = moment.from(date)
+    md.locale(culture)
+    let endOfMonth = md.endOf('month').endOf('week')
+    return endOfMonth.toDate()
 
-    return dates.endOf(endOfMonth, 'week', localizer.startOfWeek(culture))
+    // let endOfMonth = dates.endOf(date, 'month')
+    // return dates.endOf(endOfMonth, 'week', localizer.startOfWeek(culture))
   },
 
   visibleDays(date, culture) {

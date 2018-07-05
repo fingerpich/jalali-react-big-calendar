@@ -1,22 +1,22 @@
 import invariant from 'invariant'
 
 let defaultMessages = {
-  date: 'Date',
-  time: 'Time',
-  event: 'Event',
-  allDay: 'all day',
-  week: 'week',
-  work_week: 'work week',
-  day: 'day',
-  month: 'month',
-  previous: 'back',
-  next: 'next',
-  yesterday: 'yesterday',
-  tomorrow: 'tomorrow',
-  today: 'today',
+  date: 'تاریخ',
+  time: 'زمان',
+  event: 'رخداد',
+  allDay: 'همش',
+  week: 'هفته',
+  work_week: 'روز کاری',
+  day: 'روز',
+  month: 'ماه',
+  previous: 'قبلی',
+  next: 'بعدی',
+  yesterday: 'دیروز',
+  tomorrow: 'فردا',
+  today: 'امروز',
   agenda: 'agenda',
 
-  showMore: total => `+${total} more`,
+  showMore: total => `+${total} بیشتر`,
 }
 
 export function set(key, msg) {
