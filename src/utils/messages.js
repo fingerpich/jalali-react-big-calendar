@@ -14,7 +14,7 @@ let defaultMessages = {
   yesterday: 'دیروز',
   tomorrow: 'فردا',
   today: 'امروز',
-  agenda: 'agenda',
+  agenda: 'برنامه کار',
 
   showMore: total => `+${total} بیشتر`,
 }

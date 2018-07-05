@@ -21,8 +21,12 @@ Object.assign(Calendar, {
   },
 })
 
-import * as moment from 'jalali-moment'
-moment.locale('fa')
-setLocalizer(momentLocalizer(moment))
+import moment from 'jalali-moment'
+let jmoment = moment
+if (jmoment.default) {
+  jmoment = jmoment.default
+}
+jmoment.locale('fa')
+setLocalizer(momentLocalizer(jmoment))
 
 export default Calendar

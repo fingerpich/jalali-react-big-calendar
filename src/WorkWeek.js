@@ -7,7 +7,7 @@ import localizer from './localizer'
 
 function workWeekRange(date, options) {
   return Week.range(date, options).filter(
-    d => [6, 0].indexOf(d.getDay()) === -1
+    d => [4, 5].indexOf(d.getDay()) === -1
   )
 }
 
@@ -27,9 +27,7 @@ class WorkWeek extends React.Component {
 }
 
 WorkWeek.range = (date, options) => {
-  return Week.range(date, options).filter(
-    d => [6, 0].indexOf(d.getDay()) === -1
-  )
+  return workWeekRange(date, options)
 }
 
 WorkWeek.navigate = Week.navigate

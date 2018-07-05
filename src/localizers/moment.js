@@ -53,11 +53,11 @@ export default function(moment) {
     },
 
     parse(value, format, culture) {
-      return locale(moment(value, format), culture).toDate()
+      return locale(moment.from(value, format), culture).toDate()
     },
 
     format(value, format, culture) {
-      return locale(moment(value), culture).format(format)
+      return locale(moment.from(value), culture).format(format)
     },
   })
 }

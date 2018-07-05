@@ -1,7 +1,7 @@
 /* eslint no-fallthrough: off */
 import dateMath from 'date-arithmetic'
 // import localizer from '../localizer'
-import * as moment from 'jalali-moment'
+import moment from 'jalali-moment'
 
 const MILLI = {
   seconds: 1000,
@@ -14,6 +14,15 @@ const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 let dates = {
   ...dateMath,
+
+  month(date, args) {
+    const m = moment(date)
+    if (args) {
+      return m.month(args).toDate()
+    } else {
+      return m.month(args)
+    }
+  },
 
   monthsInYear(year) {
     let date = new Date(year, 0, 1)
