@@ -2,8 +2,8 @@
   "name": "jalali-react-big-calendar",
   "version": "0.19.4",
   "description": "Calendar! with events",
-  "author": "Jason Quense <monastic.panic@gmail.com>",
-  "repository": "intljusticemission/react-big-calendar",
+  "author": "Mojtaba Zarei<zarei.bs@gmail.com>",
+  "repository": "fingetpich/jalali-react-big-calendar",
   "license": "MIT",
   "main": "lib/index.js",
   "style": "lib/css/react-big-calendar.css",
@@ -38,8 +38,7 @@
     "tdd": "jest --watch",
     "release": "release",
     "prettier": "prettier '**/*js' !examples/bundle.js '!lib/**' --write ",
-    "precommit": "lint-staged",
-    "publish": "npm run build;npm publish lib"
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "src/**/*.js": "eslint",

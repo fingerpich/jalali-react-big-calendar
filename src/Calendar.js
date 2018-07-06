@@ -705,6 +705,7 @@ class Calendar extends React.Component {
     tooltipAccessor: 'title',
     allDayAccessor: 'allDay',
     culture: 'fa',
+    rtl: true,
     startAccessor: 'start',
     endAccessor: 'end',
     resourceAccessor: 'resourceId',

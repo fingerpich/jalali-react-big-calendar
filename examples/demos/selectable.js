@@ -1,6 +1,7 @@
 import React from 'react'
 import BigCalendar from 'react-big-calendar'
 import events from '../events'
+import jm from 'jalali-moment'
 
 let Selectable = () => (
   <React.Fragment>
@@ -17,7 +18,9 @@ let Selectable = () => (
       onSelectEvent={event => alert(event.title)}
       onSelectSlot={slotInfo =>
         alert(
-          `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
+          `selected slot: \n\nstart ${jm(slotInfo.start)
+            .locale('fa')
+            .format()} ` +
             `\nend: ${slotInfo.end.toLocaleString()}` +
             `\naction: ${slotInfo.action}`
         )
