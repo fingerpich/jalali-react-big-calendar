@@ -2,7 +2,7 @@
 
 An jalali events calendar component built for React and made for modern browsers (read: IE10+) and uses flexbox over the classic tables-ception approach.
 
-its just jalali version of [react-big-calendar](http://intljusticemission.github.io)
+This only makes [react-big-calendar](http://intljusticemission.github.io/react-big-calendar/) use jalali calendar system by [jalali-moment](https://github.com/fingerpich/jalali-moment)
 
 ## Use and Setup
 
