@@ -1,8 +1,7 @@
 import sortBy from 'lodash/sortBy'
-import { accessor as get } from './accessors'
 
 class Event {
-  constructor(data, { startAccessor, endAccessor, slotMetrics }) {
+  constructor(data, { accessors, slotMetrics }) {
     const {
       start,
       startDate,
@@ -10,7 +9,7 @@ class Event {
       endDate,
       top,
       height,
-    } = slotMetrics.getRange(get(data, startAccessor), get(data, endAccessor))
+    } = slotMetrics.getRange(accessors.start(data), accessors.end(data))
 
     this.start = start
     this.end = end
@@ -90,12 +89,12 @@ class Event {
 /**
  * Return true if event a and b is considered to be on the same row.
  */
-function onSameRow(a, b) {
+function onSameRow(a, b, minimumStartDifference) {
   return (
     // Occupies the same start slot.
-    Math.abs(b.start - a.start) <= 30 ||
+    Math.abs(b.start - a.start) < minimumStartDifference ||
     // A's start slot overlaps with b's end slot.
-    (a.start > b.start && a.start < b.end)
+    (b.start > a.start && b.start < a.end)
   )
 }
 
@@ -129,10 +128,17 @@ function sortByRender(events) {
   return sorted
 }
 
-function getStyledEvents({ events, ...props }) {
+function getStyledEvents({
+  events,
+  minimumStartDifference,
+  slotMetrics,
+  accessors,
+}) {
   // Create proxy events and order them so that we don't have
   // to fiddle with z-indexes.
-  const proxies = events.map(event => new Event(event, props))
+  const proxies = events.map(
+    event => new Event(event, { slotMetrics, accessors })
+  )
   const eventsInRenderOrder = sortByRender(proxies)
 
   // Group overlapping events, while keeping order.
@@ -144,7 +150,9 @@ function getStyledEvents({ events, ...props }) {
 
     // Check if this event can go into a container event.
     const container = containerEvents.find(
-      c => c.end > event.start || Math.abs(event.start - c.start) < 30
+      c =>
+        c.end > event.start ||
+        Math.abs(event.start - c.start) < minimumStartDifference
     )
 
     // Couldn't find a container — that means this event is a container.
@@ -161,7 +169,7 @@ function getStyledEvents({ events, ...props }) {
     // Start looking from behind.
     let row = null
     for (let j = container.rows.length - 1; !row && j >= 0; j--) {
-      if (onSameRow(container.rows[j], event)) {
+      if (onSameRow(container.rows[j], event, minimumStartDifference)) {
         row = container.rows[j]
       }
     }

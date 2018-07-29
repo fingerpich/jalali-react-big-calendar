@@ -1,6 +1,5 @@
 /* eslint no-fallthrough: off */
 import dateMath from 'date-arithmetic'
-// import localizer from '../localizer'
 import moment from 'jalali-moment'
 
 const MILLI = {
@@ -30,29 +29,29 @@ let dates = {
     return MONTHS.map(i => dates.month(date, i))
   },
 
-  firstVisibleDay(date, culture) {
-    const md = moment.from(date)
-    md.locale(culture)
-    let firstOfMonth = md.startOf('month').startOf('week')
-    return firstOfMonth.toDate()
+  firstVisibleDay(date, localizer) {
+    if (localizer.firstVisibleDay) {
+      return localizer.firstVisibleDay(date)
+    } else {
+      let firstOfMonth = this.startOf(date, 'month')
 
-    // let firstOfMonth = this.startOf(date, 'month')
-    // return dates.startOf(firstOfMonth, 'week', localizer.startOfWeek(culture))
+      return dates.startOf(firstOfMonth, 'week', localizer.startOfWeek())
+    }
   },
 
-  lastVisibleDay(date, culture) {
-    const md = moment.from(date)
-    md.locale(culture)
-    let endOfMonth = md.endOf('month').endOf('week')
-    return endOfMonth.toDate()
+  lastVisibleDay(date, localizer) {
+    if (localizer.lastVisibleDay) {
+      return localizer.lastVisibleDay(date)
+    } else {
+      let endOfMonth = dates.endOf(date, 'month')
 
-    // let endOfMonth = dates.endOf(date, 'month')
-    // return dates.endOf(endOfMonth, 'week', localizer.startOfWeek(culture))
+      return dates.endOf(endOfMonth, 'week', localizer.startOfWeek())
+    }
   },
 
-  visibleDays(date, culture) {
-    let current = dates.firstVisibleDay(date, culture),
-      last = dates.lastVisibleDay(date, culture),
+  visibleDays(date, localizer) {
+    let current = dates.firstVisibleDay(date, localizer),
+      last = dates.lastVisibleDay(date, localizer),
       days = []
 
     while (dates.lte(current, last, 'day')) {

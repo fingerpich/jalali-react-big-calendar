@@ -1,9 +1,9 @@
 import React from 'react'
-import BigCalendar from 'react-big-calendar'
+import BigCalendar from '../../src/index.js'
 import events from '../events'
 import jm from 'jalali-moment'
 
-let Selectable = () => (
+let Selectable = ({ localizer }) => (
   <React.Fragment>
     <h3 className="callout">
       Click an event to see more info, or drag the mouse over the calendar to
@@ -12,6 +12,7 @@ let Selectable = () => (
     <BigCalendar
       selectable
       events={events}
+      localizer={localizer}
       defaultView={BigCalendar.Views.WEEK}
       scrollToTime={new Date(1970, 1, 1, 6)}
       defaultDate={new Date(2015, 3, 12)}
